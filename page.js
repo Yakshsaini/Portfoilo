@@ -42,56 +42,89 @@ if(typingEl) cycleRoles();
 
 
 // ================= Hero "profile.json" Terminal Reveal =================
-// A single orchestrated typewriter moment on page load, rather than
-// scattered animations across the page.
+// Numbered code lines type in one by one on load.
 
-const profileLines = [
-  { key: '"name"', value: '"Yaksh Saini"' },
-  { key: '"role"', value: '"Full Stack Developer"' },
-  { key: '"stack"', value: '["React", "Node", "Express", "MongoDB"]' },
-  { key: '"focus"', value: '"MERN + AI-Integrated Apps"' },
-  { key: '"status"', value: '"open to opportunities"' }
+const P = (t) => `<span class="punc">${t}</span>`;
+const K = (t) => `<span class="key">"${t}"</span>`;
+const S = (t) => `<span class="str">"${t}"</span>`;
+const I = (t) => `<span class="item">"${t}"</span>`;
+
+const codeLines = [
+  `<span class="brace">{</span>`,
+  `  ${K("name")}${P(": ")}${S("Yaksh Saini")}${P(",")}`,
+  `  ${K("role")}${P(": ")}${S("Full Stack Developer")}${P(",")}`,
+  `  ${K("stack")}${P(": [")}${I("React")}${P(", ")}${I("Node")}${P(", ")}${I("Express")}${P(", ")}${I("MongoDB")}${P("],")}`,
+  `  ${K("focus")}${P(": ")}${S("MERN + AI-Integrated Apps")}${P(",")}`,
+  `  ${K("status")}${P(": ")}${S("open to opportunities")}`,
+  `<span class="brace">}</span><span class="caret"></span>`
 ];
 
 const editorBody = document.getElementById("editor-body");
 
 function renderProfileJSON(){
   if(!editorBody) return;
-
-  let html = '<span class="brace">{</span><br>';
-  editorBody.innerHTML = html;
-
-  let lineIdx = 0;
+  editorBody.innerHTML = "";
+  let i = 0;
 
   function addLine(){
-    if(lineIdx >= profileLines.length){
-      editorBody.innerHTML += '<span class="brace">}</span>';
-      return;
-    }
-    const line = profileLines[lineIdx];
-    const comma = lineIdx < profileLines.length - 1 ? ',' : '';
-    editorBody.innerHTML +=
-      `&nbsp;&nbsp;<span class="key">${line.key}</span><span class="punc">: </span>` +
-      `<span class="str">${line.value}</span><span class="punc">${comma}</span><br>`;
-    lineIdx++;
-    setTimeout(addLine, 260);
+    if(i >= codeLines.length) return;
+    const row = document.createElement("div");
+    row.className = "code-line";
+    row.innerHTML = `<span class="ln">${i + 1}</span><span class="code">${codeLines[i]}</span>`;
+    editorBody.appendChild(row);
+    i++;
+    setTimeout(addLine, 230);
   }
-
   setTimeout(addLine, 400);
 }
 
 renderProfileJSON();
 
 
+// ================= Subtle 3D tilt on the editor card =================
+
+const tiltZone = document.querySelector(".hero-right");
+const tiltCard = document.querySelector(".editor-window");
+
+if(tiltZone && tiltCard){
+  tiltZone.addEventListener("mousemove", (e) => {
+    const r = tiltZone.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - 0.5;
+    const y = (e.clientY - r.top) / r.height - 0.5;
+    tiltCard.style.transform = `rotateY(${x * 8}deg) rotateX(${-y * 8}deg)`;
+  });
+  tiltZone.addEventListener("mouseleave", () => {
+    tiltCard.style.transform = "rotateY(0) rotateX(0)";
+  });
+}
+
+
 // ================= Cursor Dot =================
 
 const cursor = document.querySelector(".cursor");
-if(cursor){
-  document.addEventListener("mousemove", (e) => {
+const root = document.documentElement;
+
+let targetX = -999, targetY = -999;
+let glowX = -999, glowY = -999;
+
+document.addEventListener("mousemove", (e) => {
+  targetX = e.clientX;
+  targetY = e.clientY;
+  if(cursor){
     cursor.style.left = e.clientX + "px";
     cursor.style.top = e.clientY + "px";
-  });
+  }
+});
+
+// Gold spotlight on the giant "YAKSH" trails the cursor slightly for a smooth feel
+function animateGlow(){
+  glowX += (targetX - glowX) * 0.14;
+  glowY += (targetY - glowY) * 0.14;
+  root.style.setProperty("--mx", glowX + "px");
+  root.style.setProperty("--my", glowY + "px");
+  requestAnimationFrame(animateGlow);
 }
+animateGlow();
 
 
 // ================= Scroll Reveal =================

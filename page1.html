@@ -16,6 +16,10 @@
     <div class="bg-grid"></div>
     <div class="bg-glow"></div>
 
+    <!-- Giant background name: dim base + gold layer revealed under the cursor -->
+    <div class="bg-name" aria-hidden="true"><span>YAKSH</span></div>
+    <div class="bg-name lit" aria-hidden="true"><span>YAKSH</span></div>
+
     <!-- ================= NAVBAR ================= -->
     <header class="navbar">
         <div class="logo">Yaksh<span>Saini</span></div>
@@ -64,17 +68,40 @@
 
         </div>
 
-        <!-- <div class="hero-right">
-            <div class="editor-window">
-                <div class="editor-titlebar">
-                    <span class="editor-dot r"></span>
-                    <span class="editor-dot y"></span>
-                    <span class="editor-dot g"></span>
-                    <span class="editor-filename">profile.json</span>
+        <div class="hero-right">
+            <div class="editor-wrap">
+
+                <span class="float-chip chip-1"><i style="background:#39bae6"></i>React</span>
+                <span class="float-chip chip-2"><i style="background:#7fd962"></i>Node.js</span>
+                <span class="float-chip chip-3"><i style="background:#e6b450"></i>MongoDB</span>
+                <span class="float-chip chip-4"><i style="background:#c297ff"></i>Gemini AI</span>
+
+                <div class="editor-window">
+                    <div class="editor-inner">
+
+                        <div class="editor-titlebar">
+                            <span class="editor-dot r"></span>
+                            <span class="editor-dot y"></span>
+                            <span class="editor-dot g"></span>
+                            <div class="editor-tabs">
+                                <span class="editor-tab active">profile.json</span>
+                                <span class="editor-tab">projects.js</span>
+                            </div>
+                        </div>
+
+                        <div class="editor-body" id="editor-body"></div>
+
+                        <div class="editor-status">
+                            <span class="status-live"><i></i>Open to work</span>
+                            <span>JSON</span>
+                            <span>UTF-8</span>
+                        </div>
+
+                    </div>
                 </div>
-                <div class="editor-body" id="editor-body"></div>
+
             </div>
-        </div> -->
+        </div>
 
     </section>
 
@@ -87,8 +114,8 @@
         <div class="about-container">
 
             <div class="about-image">
+                <img src="your-photo.jpg" alt="Yaksh Saini" onerror="this.style.display='none'">
                 <span class="initials">YS</span>
-                <span class="file-tag">about.me</span>
             </div>
 
             <div class="about-content">
@@ -265,7 +292,27 @@
 
     </section>
 
-    
+    <!-- ================= EXPERIENCE (kept for later) ================= -->
+    <!--
+    <section class="experience">
+        <span class="section-eyebrow">Experience</span>
+        <h2 class="section-title">Where I've worked</h2>
+        <div class="timeline">
+            <div class="timeline-box">
+                <h3>Java Developer Intern</h3>
+                <h4>Elevate Labs</h4>
+                <span>June 2025 - July 2025</span>
+                <p>Worked on Core Java, OOP concepts and backend modules.</p>
+            </div>
+            <div class="timeline-box">
+                <h3>Machine Learning Intern</h3>
+                <h4>Main Flow Services</h4>
+                <span>Oct 2024 - Nov 2024</span>
+                <p>Worked on SVM, Random Forest and KNN Models.</p>
+            </div>
+        </div>
+    </section>
+    -->
 
     <!-- ================= CONTACT ================= -->
     <section id="contact" class="contact">
